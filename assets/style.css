@@ -46,3 +46,24 @@ body{background:#f7f5ef;color:#17243a}
 .checklist input,.goal-item input{accent-color:#b28e49}
 .add-row input:focus{border-color:#c3a15c}
 @media(max-width:760px){.sidebar{background:#101d33;border-bottom-color:#293952}.nav{scrollbar-color:#7b6947 #101d33}}
+
+/* MY FRIENDS directory */
+.friends-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:8px 0 18px;flex-wrap:wrap}
+.friends-search{flex:1;min-width:190px;border:1px solid #e8e1d2;background:#fffefa;border-radius:9px;padding:12px 14px;font:12px 'DM Sans';color:#17243a}
+.friends-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.friend-card{background:#fffefa;border:1px solid #e8e1d2;border-radius:13px;padding:19px;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.friend-avatar{width:58px;height:58px;border-radius:50%;background:#f2ead8;border:2px solid #d8c18b;display:grid;place-items:center;overflow:hidden;color:#94743b;font:800 18px Manrope;margin-bottom:14px}
+.friend-avatar img{width:100%;height:100%;object-fit:cover}
+.friend-name{font:800 14px Manrope;color:#17243a;overflow-wrap:anywhere}
+.friend-meta{font-size:10px;color:#8b96a5;margin:5px 0 14px}
+.friend-actions{display:flex;gap:8px;margin-top:auto;width:100%;flex-wrap:wrap}
+.friend-actions a,.friend-actions button{border:0;border-radius:7px;padding:9px 11px;font:700 10px 'DM Sans';text-decoration:none;cursor:pointer}
+.friend-open{background:#172944;color:#f2dfb1}
+.friend-remove{background:#f3eedf;color:#92733b}
+.friend-empty{border:1px dashed #d9cba9;background:#fffdf7;border-radius:12px;padding:25px;color:#7e8795;font-size:12px;line-height:1.7;grid-column:1/-1}
+.friend-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.friend-form input{width:100%;border:1px solid #e8e1d2;background:#fffefa;border-radius:8px;padding:11px 12px;font:11px 'DM Sans';min-width:0}
+.friend-form .wide{grid-column:1/-1}
+.friend-note{font-size:10px;line-height:1.7;color:#8b96a5}
+@media(max-width:1000px){.friends-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.friends-grid,.friend-form{grid-template-columns:1fr}.friend-form .wide{grid-column:auto}}
