@@ -21,7 +21,43 @@ document.addEventListener('DOMContentLoaded',()=>{
    const save=()=>localStorage.setItem(key,JSON.stringify(goals));render();
    document.getElementById('add-goal').addEventListener('click',()=>{const inp=document.getElementById('new-goal');if(inp.value.trim()){goals.push({text:inp.value.trim(),done:false});inp.value='';save();render()}});
  }
- // Christmas ID tracker persistence
+
+ // MY FRIENDS: private browser-local directory; entries are never uploaded to GitHub.
+ const friendsList=document.getElementById('friends-list');
+ if(friendsList){
+   const key='mpw-private-friends-v1';
+   let friends=[];try{friends=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(friends))friends=[];}catch(e){friends=[];}
+   const save=()=>localStorage.setItem(key,JSON.stringify(friends));
+   const initials=name=>name.trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
+   const render=()=>{
+     friendsList.innerHTML='';
+     const q=(document.getElementById('friends-search')?.value||'').toLowerCase();
+     const filtered=friends.filter(f=>f.name.toLowerCase().includes(q));
+     if(!filtered.length){const empty=document.createElement('div');empty.className='friend-empty';empty.textContent=friends.length?'No matching friends. Try another name.':'Your private directory is ready. Add a contact using their exact Zoom display name and a Zoom link. Your entries stay in this browser and are not published to GitHub.';friendsList.append(empty);}
+     filtered.forEach(f=>{
+       const card=document.createElement('article');card.className='friend-card';
+       const avatar=document.createElement('div');avatar.className='friend-avatar';
+       if(f.photo){const img=document.createElement('img');img.src=f.photo;img.alt=f.name+' profile';img.referrerPolicy='no-referrer';img.onerror=()=>{avatar.textContent=initials(f.name);};avatar.append(img);}else avatar.textContent=initials(f.name)||'♡';
+       const name=document.createElement('div');name.className='friend-name';name.textContent=f.name;
+       const meta=document.createElement('div');meta.className='friend-meta';meta.textContent='Zoom contact';
+       const actions=document.createElement('div');actions.className='friend-actions';
+       const open=document.createElement('a');open.className='friend-open';open.textContent='Open Zoom';open.href=f.link||'https://zoom.us/signin';open.target='_blank';open.rel='noopener noreferrer';
+       const remove=document.createElement('button');remove.className='friend-remove';remove.textContent='Remove';remove.addEventListener('click',()=>{friends=friends.filter(x=>x.id!==f.id);save();render();});
+       actions.append(open,remove);card.append(avatar,name,meta,actions);friendsList.append(card);
+     });
+   };
+   document.getElementById('friend-add')?.addEventListener('click',()=>{
+     const name=document.getElementById('friend-name'),photo=document.getElementById('friend-photo'),link=document.getElementById('friend-link');
+     if(!name.value.trim()){name.focus();return;}
+     let safeLink='';try{if(link.value.trim()){const u=new URL(link.value.trim());if(u.protocol==='https:'&&/(^|\.)zoom\.us$/i.test(u.hostname))safeLink=u.href;}}catch(e){}
+     let safePhoto='';try{if(photo.value.trim()){const u=new URL(photo.value.trim());if(u.protocol==='https:')safePhoto=u.href;}}catch(e){}
+     friends.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),name:name.value.trim(),photo:safePhoto,link:safeLink});
+     save();name.value='';photo.value='';link.value='';render();
+   });
+   document.getElementById('friends-search')?.addEventListener('input',render);
+   render();
+ }
+\n // Christmas ID tracker persistence
  const stationList=document.getElementById('station-list');
  if(stationList){
    const key='mpw-stations';let stations=JSON.parse(localStorage.getItem(key)||'[]');
