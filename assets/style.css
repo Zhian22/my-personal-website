@@ -77,3 +77,22 @@ body{background:#f7f5ef;color:#17243a}
 .chat-header{height:76px;border-bottom:1px solid #eee9df;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}.chat-person{display:flex;align-items:center;gap:11px;min-width:0}.chat-person .friend-avatar{width:43px;height:43px;margin:0;flex:0 0 43px}.chat-person strong{display:block;font:700 12px 'DM Sans';color:#17243a}.chat-person small{display:block;font-size:10px;color:#8d97a5;margin-top:4px}.chat-zoom-link{font-size:10px;font-weight:700;color:#8b6d36;text-decoration:none;white-space:nowrap;background:#f4eedf;padding:10px 12px;border-radius:7px}
 .chat-history{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px}.chat-intro-icon{width:58px;height:58px;font-size:24px;margin-bottom:12px}.chat-history h3{font:800 16px Manrope;margin:0 0 7px}.chat-history p{font-size:11px;color:#8b96a5;line-height:1.65;margin:4px 0;max-width:300px}.chat-history .chat-hint{margin:12px 0 17px;color:#927b50}.chat-composer{margin:0 18px 17px;padding:10px 13px;border:1px solid #e9e4da;border-radius:24px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f8f6f0}.chat-composer span{font-size:10px;color:#969da8}.chat-composer button{width:30px;height:30px;border:0;border-radius:50%;background:#d9c18b;color:#fff;opacity:.55}.add-contact-panel{margin-top:18px}
 @media(max-width:900px){.messenger-wrap{grid-template-columns:260px minmax(0,1fr)}}@media(max-width:650px){.messenger-wrap{height:auto;min-height:620px;grid-template-columns:1fr;grid-template-rows:300px 320px}.messenger-list{border-right:0;border-bottom:1px solid #e9e4da}.messenger-friends{max-height:190px}.messenger-chat{min-height:320px}.chat-empty-state{min-height:320px}.chat-header{height:66px;padding:10px 13px}.chat-composer{margin:0 10px 12px}}
+
+
+/* MY APPS launcher */
+.app-launch-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.app-launch-card{min-height:145px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px 17px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-decoration:none;color:var(--ink);transition:.2s}
+.app-launch-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px #263a5c12;border-color:#d9c99f}
+.app-launch-card strong{font:800 13px Manrope}
+.app-launch-card small{font-size:10px;color:#8993a2}
+.app-launch-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:white;font:800 22px Manrope;margin-bottom:7px}
+.app-launch-icon.facebook{background:#1877f2}.app-launch-icon.zoom{background:#2d8cff}.app-launch-icon.gmail{background:#d94b3d}.app-launch-icon.calendar{background:#39875a;font-size:16px}.app-launch-icon.youtube{background:#e62117}.app-launch-icon.spotify{background:#168b50}.app-launch-icon.google{background:#4285f4}.app-launch-icon.canva{background:#287caa}
+.app-custom-panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:22px}
+.app-add-row input{min-width:0}
+.app-add-row button{white-space:nowrap}
+.app-custom-list{display:grid;gap:8px;margin-top:14px}
+.app-custom-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;border:1px solid #edf0f4;border-radius:8px;font-size:11px}
+.app-custom-row a{color:#526d9f;text-decoration:none;font-weight:700;overflow-wrap:anywhere}
+.app-custom-row button{border:0;background:transparent;color:#9a6c5e;font-size:10px;cursor:pointer}
+@media(max-width:1100px){.app-launch-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.app-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.app-add-row{flex-wrap:wrap}.app-add-row input{flex:1 1 100%}.app-add-row button{width:100%;justify-content:center}}
