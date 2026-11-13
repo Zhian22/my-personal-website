@@ -69,8 +69,13 @@
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
  const viewer=document.getElementById('app-viewer'),themeSelect=document.getElementById('app-theme-select'),library=document.getElementById('app-library'),frame=document.getElementById('app-frame'),nameEl=document.getElementById('active-app-name'),external=document.getElementById('app-external'),loading=document.getElementById('app-frame-loading');
+ const themeKey='mpw-app-themes-v1';
+ let themes={};try{themes=JSON.parse(localStorage.getItem(themeKey)||'{}');}catch(e){}
+ const defaults={'Facebook':'midnight','Zoom':'navy-gold','Gmail':'charcoal','Google Calendar':'ocean','YouTube':'charcoal','Spotify':'forest','Google':'ocean','Canva':'violet'};
+ const applyTheme=(appName)=>{const theme=themes[appName]||defaults[appName]||'midnight';viewer.dataset.theme=theme;themeSelect.value=theme;};
+ themeSelect.addEventListener('change',()=>{themes[nameEl.textContent]=themeSelect.value;localStorage.setItem(themeKey,JSON.stringify(themes));applyTheme(nameEl.textContent);});
  const openInside=(name,url)=>{
-   nameEl.textContent=name;external.href=url;loading.hidden=false;frame.src='about:blank';
+   nameEl.textContent=name;external.href=url;applyTheme(name);loading.hidden=false;frame.src='about:blank';
    viewer.hidden=false;library.hidden=true;
    frame.onload=()=>{loading.hidden=true;};
    frame.src=url;
