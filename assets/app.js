@@ -42,4 +42,35 @@ document.addEventListener('DOMContentLoaded',()=>{
    const save=()=>localStorage.setItem(key,JSON.stringify(stations));render();
    document.getElementById('add-station').addEventListener('click',()=>{const inp=document.getElementById('station-input');if(inp.value.trim()){stations.push(inp.value.trim());inp.value='';save();render()}});
  }
+
+ // Global site tools: theme preference, quick search, accessible mobile navigation.
+ const main=document.querySelector('main');
+ if(main){const skip=document.createElement('a');skip.className='skip-link';skip.href='#main-content';skip.textContent='Skip to main content';document.body.prepend(skip);main.id='main-content';}
+ const topbar=document.querySelector('.topbar');
+ if(topbar){
+   const tools=document.createElement('div');tools.className='global-tools';
+   const menu=document.createElement('button');menu.type='button';menu.className='global-tool mobile-menu-toggle';menu.textContent='☰ Menu';menu.setAttribute('aria-label','Open navigation menu');menu.setAttribute('aria-expanded','false');
+   menu.addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');menu.setAttribute('aria-expanded',String(open));menu.textContent=open?'✕ Close':'☰ Menu';});
+   const theme=document.createElement('button');theme.type='button';theme.className='global-tool';theme.id='theme-toggle';
+   document.body.dataset.theme=localStorage.getItem('mpw-theme')||'light';
+   const paintTheme=()=>{theme.textContent=document.body.dataset.theme==='dark'?'☀ Light':'◐ Dark';theme.setAttribute('aria-label',document.body.dataset.theme==='dark'?'Switch to light theme':'Switch to dark theme');};
+   theme.addEventListener('click',()=>{document.body.dataset.theme=document.body.dataset.theme==='dark'?'light':'dark';localStorage.setItem('mpw-theme',document.body.dataset.theme);paintTheme();});paintTheme();
+   const search=document.createElement('button');search.type='button';search.className='global-tool';search.textContent='⌕ Search';search.setAttribute('aria-label','Search this website');
+   tools.append(menu,search,theme);topbar.append(tools);
+   const dialog=document.createElement('dialog');dialog.className='site-search-dialog';dialog.setAttribute('aria-label','Search website');
+   dialog.innerHTML='<div class="search-dialog-inner"><div class="search-dialog-head"><strong>Search your workspace</strong><button type="button" aria-label="Close search">Close ✕</button></div><input class="site-search-input" type="search" placeholder="Search courses, pages or units…" aria-label="Search pages and units"><div class="site-search-results" aria-live="polite"></div><p class="search-hint">Tip: Press / or Ctrl/⌘ + K to open search. Press Escape to close.</p></div>';
+   document.body.append(dialog);
+   const input=dialog.querySelector('input'),results=dialog.querySelector('.site-search-results');
+   const destinations=[['Overview','Your personal dashboard','index.html'],['German Learning','German lessons and study areas','german.html'],['Deutsch 3 A2.2','39-unit course index','deutsch3.html'],['Exam Center','Review checklist and exam preparation','exams.html'],['Trackers','Vacation and Christmas ID trackers','trackers.html'],['Goals & Projects','Personal goals and action list','goals.html'],['MY FRIENDS','Friends directory','friends.html'],['MY APPS','App library','apps.html']];
+   const unitNames=['Ihren Feierabend beschreiben','Ihre Wohngegend beschreiben','Über Aktivitäten von gestern sprechen','Über Freizeit heute und früher sprechen','Sagen, wo Sie früher gearbeitet haben','Über Ihr Studium sprechen','Über Stellenanzeigen sprechen','Ihre Routine am Morgen beschreiben','Sagen, was Sie jeden Tag tun','Wiederholung','Ihre Routine am Abend beschreiben','Über Lesestoff sprechen','Jemandem gratulieren','Sich freuen und Danke sagen','Sich verabreden','Sagen, wie Sie sich fühlen und wie krank Sie sind','Sagen, was gut für die Gesundheit ist','Über tägliches Essen und Trinken sprechen','Sagen, wie Sie fit bleiben','Wiederholung','Sagen, was man als Tourist macht','Über Sehenswürdigkeiten sprechen','Sich in einer Stadt zurechtfinden','Empfehlen, was ein Tourist machen kann','Einen Termin vereinbaren, absagen oder verschieben','Eine Besprechung organisieren','Ein Geschäftsessen planen','Sagen, wo Sie Urlaub verbringen und was Sie mitnehmen','Über das Wetter sprechen','Wiederholung','Sagen, was Sie im Urlaub machen','Aufgaben beschreiben','Projekte und Zeitpläne besprechen','Über Feedback und Mitarbeitermotivation sprechen','Eine Veranstaltung beschreiben','Sagen, was Sie vorhaben','Eine Sportveranstaltung beschreiben','Karten vorbestellen und Tickets kaufen','Über typische Imbisse sprechen'];
+   unitNames.forEach((name,i)=>destinations.push(['Einheit '+(i+1),name,'unit.html?unit='+(i+1)]));
+   const renderResults=()=>{const q=input.value.trim().toLocaleLowerCase();results.innerHTML='';const matches=destinations.filter(x=>(x[0]+' '+x[1]).toLocaleLowerCase().includes(q)).slice(0,12);if(!matches.length){const p=document.createElement('p');p.textContent='No matching pages. Try another word.';results.append(p);return;}matches.forEach(item=>{const a=document.createElement('a');a.href=item[2];const label=document.createElement('span');label.textContent=item[0];const detail=document.createElement('small');detail.textContent=item[1];a.append(label,detail);results.append(a);});};
+   search.addEventListener('click',()=>{dialog.showModal();input.value='';renderResults();input.focus();});
+   input.addEventListener('input',renderResults);
+   dialog.querySelector('.search-dialog-head button').addEventListener('click',()=>dialog.close());
+   dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+   document.addEventListener('keydown',e=>{if((e.key==='k'&&(e.metaKey||e.ctrlKey))||e.key==='/'){if(e.target.matches('input,textarea,select'))return;e.preventDefault();if(!dialog.open){dialog.showModal();input.focus();}}});
+   results.addEventListener('click',e=>{if(e.target.closest('a'))dialog.close();});
+ }
+
 });
