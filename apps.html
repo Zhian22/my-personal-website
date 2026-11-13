@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Open your favorite apps inside My Personal Website where supported.">
   <title>MY APPS | My Personal Website</title>
-  <link rel="stylesheet" href="assets/style.css?v=5">
+  <link rel="stylesheet" href="assets/style.css?v=6">
 </head>
 <body>
 <div class="shell">
@@ -34,14 +34,14 @@
         <div class="app-viewer-title"><span class="app-viewer-dot"></span><strong id="active-app-name">App</strong></div>
         <div class="app-viewer-actions">
           <button class="app-tool-button" id="app-back" type="button">← All apps</button>
-          <a class="app-tool-button app-external-link" id="app-external" href="#" target="_blank" rel="noopener noreferrer">Open separately ↗</a>
+          <label class="app-theme-control">Portal theme <select id="app-theme-select" aria-label="Choose portal theme"><option value="midnight">Midnight blue</option><option value="navy-gold">Navy &amp; gold</option><option value="charcoal">Charcoal</option><option value="ocean">Ocean blue</option><option value="forest">Forest</option><option value="violet">Violet</option></select></label><a class="app-tool-button app-external-link" id="app-external" href="#" target="_blank" rel="noopener noreferrer">Open separately ↗</a>
         </div>
       </div>
       <div class="app-frame-wrap">
         <div class="app-frame-loading" id="app-frame-loading">Loading website…</div>
         <iframe id="app-frame" title="App displayed inside My Personal Website" src="about:blank" allow="camera; microphone; clipboard-read; clipboard-write; fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
       </div>
-      <p class="app-frame-note" id="app-frame-note">If the website refuses to display here, use “Open separately”. Some services block embedded viewing for security reasons.</p>
+      <p class="app-frame-note" id="app-frame-note">This theme changes the portal viewer surrounding the website. The website’s own colors can only be changed using its built-in appearance settings; some sites also block embedded viewing.</p>
     </section>
     <section id="app-library">
       <div class="section-head"><div><div class="eyebrow dark">QUICK LAUNCH</div><h2>Favorite apps</h2><p>Click an app to try opening it inside this portal.</p></div><span class="section-note">APP LIBRARY</span></div>
@@ -65,10 +65,10 @@
     <footer>© <span class="year"></span> My Personal Website <span>Made for your next chapter.</span></footer>
   </main>
 </div>
-<script src="assets/app.js?v=5"></script>
+<script src="assets/app.js?v=6"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
- const viewer=document.getElementById('app-viewer'),library=document.getElementById('app-library'),frame=document.getElementById('app-frame'),nameEl=document.getElementById('active-app-name'),external=document.getElementById('app-external'),loading=document.getElementById('app-frame-loading');
+ const viewer=document.getElementById('app-viewer'),themeSelect=document.getElementById('app-theme-select'),library=document.getElementById('app-library'),frame=document.getElementById('app-frame'),nameEl=document.getElementById('active-app-name'),external=document.getElementById('app-external'),loading=document.getElementById('app-frame-loading');
  const openInside=(name,url)=>{
    nameEl.textContent=name;external.href=url;loading.hidden=false;frame.src='about:blank';
    viewer.hidden=false;library.hidden=true;
