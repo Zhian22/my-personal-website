@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="My Personal Website — favorite apps and websites in one place.">
+  <meta name="description" content="Open your favorite apps inside My Personal Website where supported.">
   <title>MY APPS | My Personal Website</title>
-  <link rel="stylesheet" href="assets/style.css?v=4">
+  <link rel="stylesheet" href="assets/style.css?v=5">
 </head>
 <body>
 <div class="shell">
@@ -24,39 +24,64 @@
   </aside>
   <main class="main">
     <header class="topbar"><div class="breadcrumb"><a href="index.html">Workspace</a> <span>/</span> MY APPS</div><div class="top-actions"><span class="live-dot"></span><span id="today"></span></div></header>
-    <section class="page-hero">
+    <section class="page-hero app-page-heading">
       <div class="eyebrow dark">YOUR DIGITAL SPACE</div>
       <h1>MY <em>APPS.</em></h1>
-      <p>Open your favorite apps and websites from one convenient place. Select an app to open it in a new tab.</p>
+      <p>Choose an app to display it in your portal. Your left navigation stays available while you work.</p>
     </section>
-    <section class="section-head"><div><div class="eyebrow dark">QUICK LAUNCH</div><h2>Favorite apps</h2><p>Your shortcuts to popular websites.</p></div><span class="section-note">APP LIBRARY</span></section>
-    <section class="app-launch-grid" id="app-launch-grid">
-      <a class="app-launch-card" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon facebook">f</span><strong>Facebook</strong><small>Social networking</small></a>
-      <a class="app-launch-card" href="https://zoom.us/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon zoom">Z</span><strong>Zoom</strong><small>Meetings and chat</small></a>
-      <a class="app-launch-card" href="https://mail.google.com/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon gmail">M</span><strong>Gmail</strong><small>Email</small></a>
-      <a class="app-launch-card" href="https://calendar.google.com/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon calendar">31</span><strong>Google Calendar</strong><small>Schedule and events</small></a>
-      <a class="app-launch-card" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon youtube">▶</span><strong>YouTube</strong><small>Videos and learning</small></a>
-      <a class="app-launch-card" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon spotify">♫</span><strong>Spotify</strong><small>Music and podcasts</small></a>
-      <a class="app-launch-card" href="https://www.google.com/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon google">G</span><strong>Google</strong><small>Search and explore</small></a>
-      <a class="app-launch-card" href="https://www.canva.com/" target="_blank" rel="noopener noreferrer"><span class="app-launch-icon canva">C</span><strong>Canva</strong><small>Design and creativity</small></a>
+    <section class="app-viewer" id="app-viewer" hidden>
+      <div class="app-viewer-toolbar">
+        <div class="app-viewer-title"><span class="app-viewer-dot"></span><strong id="active-app-name">App</strong></div>
+        <div class="app-viewer-actions">
+          <button class="app-tool-button" id="app-back" type="button">← All apps</button>
+          <a class="app-tool-button app-external-link" id="app-external" href="#" target="_blank" rel="noopener noreferrer">Open separately ↗</a>
+        </div>
+      </div>
+      <div class="app-frame-wrap">
+        <div class="app-frame-loading" id="app-frame-loading">Loading website…</div>
+        <iframe id="app-frame" title="App displayed inside My Personal Website" src="about:blank" allow="camera; microphone; clipboard-read; clipboard-write; fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="app-frame-note" id="app-frame-note">If the website refuses to display here, use “Open separately”. Some services block embedded viewing for security reasons.</p>
     </section>
-    <section class="content-panel app-custom-panel">
-      <div class="eyebrow dark">MAKE IT YOURS</div><h2>Add a website</h2>
-      <p class="muted small">Add another shortcut using its website address. Your custom shortcuts are saved in this browser only.</p>
-      <div class="add-row app-add-row"><input id="custom-app-name" type="text" placeholder="Website or app name" maxlength="40" aria-label="Website or app name"><input id="custom-app-url" type="url" placeholder="https://example.com" aria-label="Website address"><button class="btn btn-dark" id="add-custom-app" type="button">Add shortcut</button></div>
-      <div class="app-custom-list" id="custom-app-list"></div>
-      <div class="callout">Some websites may not allow being displayed inside this portal. Shortcuts open the official website in a new browser tab, where you can sign in directly.</div>
+    <section id="app-library">
+      <div class="section-head"><div><div class="eyebrow dark">QUICK LAUNCH</div><h2>Favorite apps</h2><p>Click an app to try opening it inside this portal.</p></div><span class="section-note">APP LIBRARY</span></div>
+      <section class="app-launch-grid" id="app-launch-grid">
+        <button class="app-launch-card" type="button" data-name="Facebook" data-url="https://www.facebook.com/"><span class="app-launch-icon facebook">f</span><strong>Facebook</strong><small>Social networking</small></button>
+        <button class="app-launch-card" type="button" data-name="Zoom" data-url="https://zoom.us/"><span class="app-launch-icon zoom">Z</span><strong>Zoom</strong><small>Meetings and chat</small></button>
+        <button class="app-launch-card" type="button" data-name="Gmail" data-url="https://mail.google.com/"><span class="app-launch-icon gmail">M</span><strong>Gmail</strong><small>Email</small></button>
+        <button class="app-launch-card" type="button" data-name="Google Calendar" data-url="https://calendar.google.com/"><span class="app-launch-icon calendar">31</span><strong>Google Calendar</strong><small>Schedule and events</small></button>
+        <button class="app-launch-card" type="button" data-name="YouTube" data-url="https://www.youtube.com/"><span class="app-launch-icon youtube">▶</span><strong>YouTube</strong><small>Videos and learning</small></button>
+        <button class="app-launch-card" type="button" data-name="Spotify" data-url="https://open.spotify.com/"><span class="app-launch-icon spotify">♫</span><strong>Spotify</strong><small>Music and podcasts</small></button>
+        <button class="app-launch-card" type="button" data-name="Google" data-url="https://www.google.com/"><span class="app-launch-icon google">G</span><strong>Google</strong><small>Search and explore</small></button>
+        <button class="app-launch-card" type="button" data-name="Canva" data-url="https://www.canva.com/"><span class="app-launch-icon canva">C</span><strong>Canva</strong><small>Design and creativity</small></button>
+      </section>
+      <section class="content-panel app-custom-panel">
+        <div class="eyebrow dark">MAKE IT YOURS</div><h2>Add a website</h2>
+        <p class="muted small">Add another shortcut. Custom shortcuts are saved in this browser only.</p>
+        <div class="add-row app-add-row"><input id="custom-app-name" type="text" placeholder="Website or app name" maxlength="40" aria-label="Website or app name"><input id="custom-app-url" type="url" placeholder="https://example.com" aria-label="Website address"><button class="btn btn-dark" id="add-custom-app" type="button">Add shortcut</button></div>
+        <div class="app-custom-list" id="custom-app-list"></div>
+      </section>
     </section>
     <footer>© <span class="year"></span> My Personal Website <span>Made for your next chapter.</span></footer>
   </main>
 </div>
-<script src="assets/app.js?v=4"></script>
+<script src="assets/app.js?v=5"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
+ const viewer=document.getElementById('app-viewer'),library=document.getElementById('app-library'),frame=document.getElementById('app-frame'),nameEl=document.getElementById('active-app-name'),external=document.getElementById('app-external'),loading=document.getElementById('app-frame-loading');
+ const openInside=(name,url)=>{
+   nameEl.textContent=name;external.href=url;loading.hidden=false;frame.src='about:blank';
+   viewer.hidden=false;library.hidden=true;
+   frame.onload=()=>{loading.hidden=true;};
+   frame.src=url;
+   document.querySelector('.app-page-heading').scrollIntoView({behavior:'smooth',block:'start'});
+ };
+ document.querySelectorAll('.app-launch-card[data-url]').forEach(card=>card.addEventListener('click',()=>openInside(card.dataset.name,card.dataset.url)));
+ document.getElementById('app-back').addEventListener('click',()=>{frame.src='about:blank';viewer.hidden=true;library.hidden=false;});
  const key='mpw-custom-apps-v1',list=document.getElementById('custom-app-list'),name=document.getElementById('custom-app-name'),url=document.getElementById('custom-app-url');
  let apps=[];try{apps=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(apps))apps=[];}catch(e){}
  const save=()=>localStorage.setItem(key,JSON.stringify(apps));
- const render=()=>{list.innerHTML='';apps.forEach((app,i)=>{const row=document.createElement('div');row.className='app-custom-row';const a=document.createElement('a');a.href=app.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=app.name+'  ↗';const del=document.createElement('button');del.type='button';del.textContent='Remove';del.addEventListener('click',()=>{apps.splice(i,1);save();render();});row.append(a,del);list.append(row);});};
+ const render=()=>{list.innerHTML='';apps.forEach((app,i)=>{const row=document.createElement('div');row.className='app-custom-row';const open=document.createElement('button');open.type='button';open.className='app-custom-open';open.textContent=app.name+'  ↗';open.addEventListener('click',()=>openInside(app.name,app.url));const del=document.createElement('button');del.type='button';del.textContent='Remove';del.addEventListener('click',()=>{apps.splice(i,1);save();render();});row.append(open,del);list.append(row);});};
  document.getElementById('add-custom-app').addEventListener('click',()=>{let safe;try{safe=new URL(url.value.trim());}catch(e){url.focus();return;}if(safe.protocol!=='https:'||!name.value.trim()){url.focus();return;}apps.push({name:name.value.trim(),url:safe.href});save();name.value='';url.value='';render();});
  render();
 });
